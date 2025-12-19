@@ -21,10 +21,29 @@
             border-radius: 20px;
             text-align: center;
             box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            transform: scale(0.9);
+            transition: transform 0.6s ease;
+        }
+
+        .card.open {
+            transform: scale(1);
         }
 
         h1 {
             color: #1258c0;
+            font-size: 22px;
+        }
+
+        .flower {
+            font-size: 50px;
+            animation: float 2s ease-in-out infinite;
+            margin-bottom: 10px;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0); }
         }
 
         button {
@@ -44,26 +63,38 @@
 
         .message {
             margin-top: 15px;
-            display: none;
             font-size: 16px;
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.8s ease;
+        }
+
+        .message.show {
+            opacity: 1;
+            max-height: 200px;
         }
     </style>
 </head>
 <body>
 
-<div class="card">
-    <h1> Halo Adel </h1>
-    <p>Klik kartu ini ya</p>
+<div class="card" id="card">
+    <div class="flower">🌼</div>
+    <h1>Halo Edelweiss Damara Araminta</h1>
+    <p>Klik ini ya</p>
     <button onclick="showMessage()">Buka Kartu</button>
+
     <div class="message" id="message">
         🎂 Selamat Ulang Tahun! 🎂<br>
-        Semoga sehat, bahagia, dan semua keinginanmu tercapai ✨
+        Semoga sehat, bahagia,<br>
+        dan semua keinginanmu tercapai ✨
     </div>
 </div>
 
 <script>
     function showMessage() {
-        document.getElementById("message").style.display = "block";
+        document.getElementById("message").classList.add("show");
+        document.getElementById("card").classList.add("open");
     }
 </script>
 
