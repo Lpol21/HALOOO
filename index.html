@@ -16,21 +16,23 @@ body {
     overflow: hidden;
 }
 
-/* AMPL0P */
+/* ===== AMPL0P ===== */
 .envelope {
     width: 360px;
     height: 240px;
+    position: relative;
+    perspective: 1000px;
+}
+
+/* BADAN AMPL0P */
+.envelope-body {
+    width: 100%;
+    height: 100%;
     background: #e8edf5;
     border-radius: 20px;
     position: relative;
-    cursor: pointer;
-    box-shadow: 0 18px 40px rgba(0,0,0,0.15);
     overflow: hidden;
-    transition: all 0.8s ease;
-}
-
-.envelope.open {
-    height: 420px;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.15);
 }
 
 /* FLAP */
@@ -41,37 +43,44 @@ body {
     height: 50%;
     background: #cfd8e6;
     clip-path: polygon(0 0, 50% 100%, 100% 0);
-    transition: transform 0.8s ease;
+    transform-origin: top;
+    transition: transform 1s ease;
+    z-index: 3;
 }
 
-.envelope.open .flap {
-    transform: rotateX(180deg);
-}
-
-/* ISI KARTU */
+/* KARTU */
 .card {
-    background: white;
+    position: absolute;
+    bottom: -100%;
+    left: 0;
     width: 100%;
     height: 100%;
+    background: white;
     border-radius: 20px;
     padding: 30px;
     box-sizing: border-box;
     text-align: center;
-    transform: translateY(100%);
-    transition: transform 0.8s ease;
+    transition: bottom 1s ease;
+    z-index: 2;
+}
+
+/* KONDISI TERBUKA */
+.envelope.open .flap {
+    transform: rotateX(180deg);
 }
 
 .envelope.open .card {
-    transform: translateY(0);
+    bottom: 0;
 }
 
+/* ===== ISI ===== */
 h1 {
     color: #3a4f7a;
     font-size: 22px;
 }
 
 .flower {
-    font-size: 44px;
+    font-size: 42px;
     margin-bottom: 10px;
     animation: float 2.5s ease-in-out infinite;
 }
@@ -82,12 +91,6 @@ h1 {
     100% { transform: translateY(0); }
 }
 
-/* STEP */
-.step {
-    margin-top: 15px;
-}
-
-/* BUTTON */
 button {
     margin: 8px;
     padding: 10px 18px;
@@ -99,22 +102,24 @@ button {
     color: white;
 }
 
-/* TULISAN */
+.step {
+    margin-top: 15px;
+}
+
 .message {
-    margin-top: 20px;
+    margin-top: 18px;
     font-size: 16px;
     color: #3a4f7a;
     min-height: 120px;
 }
 
-/* EDELWEISS JATUH */
+/* ===== EDELWEISS JATUH ===== */
 .confetti {
     position: fixed;
     top: -10px;
     font-size: 18px;
     animation: fall linear forwards;
     z-index: 1;
-    opacity: 0.9;
 }
 
 @keyframes fall {
@@ -129,30 +134,32 @@ button {
 <body>
 
 <div class="envelope" id="envelope">
-    <div class="flap"></div>
+    <div class="envelope-body">
+        <div class="flap"></div>
 
-    <div class="card">
-        <div class="flower">❄️</div>
-        <h1>Halo Edelweiss Damara Araminta</h1>
+        <div class="card">
+            <div class="flower">❄️</div>
+            <h1>Halo Edelweiss Damara Araminta</h1>
 
-        <div class="step" id="step1">
-            <p>Klik ini yaa</p>
-            <button onclick="goStep2()">Klik</button>
+            <div class="step" id="step1">
+                <p>Klik ini yaa</p>
+                <button onclick="goStep2()">Klik</button>
+            </div>
+
+            <div class="step" id="step2" style="display:none;">
+                <p>Udah siap :D?</p>
+                <button onclick="wrongChoice()">Engga</button>
+                <button onclick="goStep3()">Siap</button>
+            </div>
+
+            <div class="step" id="step3" style="display:none;">
+                <p>Yakin?</p>
+                <button onclick="goStep3()">SIAP</button>
+                <button onclick="openEnvelope()">SIAAAPPP</button>
+            </div>
+
+            <div class="message" id="message"></div>
         </div>
-
-        <div class="step" id="step2" style="display:none;">
-            <p>Udah siap :D?</p>
-            <button onclick="wrongChoice()">Engga</button>
-            <button onclick="goStep3()">Siap</button>
-        </div>
-
-        <div class="step" id="step3" style="display:none;">
-            <p>Yakin?</p>
-            <button onclick="goStep3()">SIAP</button>
-            <button onclick="openEnvelope()">SIAAAPPP</button>
-        </div>
-
-        <div class="message" id="message"></div>
     </div>
 </div>
 
@@ -188,7 +195,7 @@ function openEnvelope() {
 
 function typeText() {
     if (index < text.length) {
-        message.innerHTML += text.charAt(index) === "\n" ? "<br>" : text.charAt(index);
+        message.innerHTML += text[index] === "\n" ? "<br>" : text[index];
         index++;
         setTimeout(typeText, 45);
     }
@@ -196,13 +203,13 @@ function typeText() {
 
 function startConfetti() {
     for (let i = 0; i < 35; i++) {
-        const flower = document.createElement("div");
-        flower.classList.add("confetti");
-        flower.innerHTML = "❄️";
-        flower.style.left = Math.random() * 100 + "vw";
-        flower.style.animationDuration = (3 + Math.random() * 3) + "s";
-        document.body.appendChild(flower);
-        setTimeout(() => flower.remove(), 6000);
+        const f = document.createElement("div");
+        f.className = "confetti";
+        f.innerHTML = "❄️";
+        f.style.left = Math.random() * 100 + "vw";
+        f.style.animationDuration = (3 + Math.random() * 3) + "s";
+        document.body.appendChild(f);
+        setTimeout(() => f.remove(), 6000);
     }
 }
 </script>
