@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>Surat Ucapan</title>
+<title>Kartu Ucapan</title>
 
 <style>
 body {
@@ -16,135 +16,123 @@ body {
     overflow: hidden;
 }
 
-/* LEMBAR SURAT */
-.letter {
+/* KARTU KECIL */
+.card {
     background: #ffffff;
-    width: 80%;
-    max-width: 720px;
-    height: 80%;
-    padding: 40px;
-    border-radius: 20px;
+    width: 360px;
+    padding: 32px;
+    border-radius: 28px;
+    text-align: center;
     box-shadow: 0 18px 40px rgba(0,0,0,0.15);
     position: relative;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    transform: scale(0.95);
-    transition: transform 0.6s ease;
+    z-index: 2;
 }
 
-.letter.open {
-    transform: scale(1);
-}
-
-/* EDELWEISS */
-.flower {
-    font-size: 48px;
-    margin-bottom: 16px;
-    animation: float 2.5s ease-in-out infinite;
-}
-
-@keyframes float {
-    0% { transform: translateY(0); }
-    50% { transform: translateY(-6px); }
-    100% { transform: translateY(0); }
-}
-
-/* TULISAN */
-h1 {
+.card h1 {
     color: #3a4f7a;
-    font-size: 28px;
-    margin-bottom: 24px;
+    font-size: 22px;
+    margin-bottom: 12px;
 }
 
-.message {
-    font-size: 18px;
-    color: #3a4f7a;
-    white-space: pre-line;
-    width: 100%;
-    text-align: center;
-    line-height: 1.6;
-    min-height: 250px;
-}
-
-/* BUTTON */
 button {
-    margin: 12px;
-    padding: 12px 28px;
+    margin: 8px;
+    padding: 10px 22px;
     border: none;
     border-radius: 24px;
-    font-size: 16px;
+    font-size: 14px;
     cursor: pointer;
     background: #3a4f7a;
     color: white;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
 button:hover {
     background: #2f4168;
     transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(0,0,0,0.2);
 }
 
 /* STEP */
-.step {
-    margin-top: 16px;
-}
+.step { margin-top: 12px; }
 
 /* CONFETTI */
 .confetti {
     position: fixed;
     top: -10px;
-    font-size: 20px;
+    font-size: 18px;
     animation: fall linear forwards;
     z-index: 1;
 }
 
 @keyframes fall {
-    to {
-        transform: translateY(110vh) rotate(360deg);
-        opacity: 0;
-    }
+    to { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+}
+
+/* LEMBAR SURAT BESAR */
+.letter {
+    display: none;
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-width: 720px;
+    height: 80%;
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.15);
+    overflow-y: auto;
+    text-align: center;
+    z-index: 5;
+}
+
+.letter h1 {
+    font-size: 28px;
+    color: #3a4f7a;
+    margin-bottom: 24px;
+}
+
+.letter .message {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #3a4f7a;
+    white-space: pre-line;
 }
 </style>
 </head>
-
 <body>
 
-<div class="letter" id="letter">
-    <div class="flower">❄️</div>
+<!-- KARTU KECIL AWAL -->
+<div class="card" id="card">
     <h1>Halo Edelweiss Damara Araminta</h1>
 
-    <!-- STEP 1 -->
     <div class="step" id="step1">
         <p>Klik ini yaa</p>
         <button onclick="goStep1b()">Klik</button>
     </div>
 
-    <!-- STEP 1B: hadiah kecil -->
     <div class="step" id="step1b" style="display:none;">
         <p>Sedikit hadiah kecil 🎁</p>
         <button onclick="goStep2()">OK</button>
     </div>
 
-    <!-- STEP 2 -->
     <div class="step" id="step2" style="display:none;">
         <p>Udah siap :D?</p>
         <button onclick="wrongChoice()">Engga</button>
         <button onclick="goStep3()">Siap</button>
     </div>
 
-    <!-- STEP 3 -->
     <div class="step" id="step3" style="display:none;">
         <p>Yakin?</p>
         <button onclick="goStep3()">SIAP</button>
         <button onclick="openLetter()">SIAAAPPP</button>
     </div>
+</div>
 
-    <div class="message" id="message"></div>
+<!-- LEMBAR SURAT BESAR -->
+<div class="letter" id="letter">
+    <h1>Surat Ucapan</h1>
+    <div class="message" id="letterMessage"></div>
 </div>
 
 <script>
@@ -176,15 +164,15 @@ function wrongChoice() {
 }
 
 function openLetter() {
-    document.getElementById("letter").classList.add("open");
     step3.style.display = "none";
+    document.getElementById("letter").style.display = "block";
     typeText();
     startConfetti();
 }
 
 function typeText() {
     if (index < text.length) {
-        message.textContent += text[index];
+        letterMessage.textContent += text[index];
         index++;
         setTimeout(typeText, 45);
     }
