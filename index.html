@@ -2,21 +2,70 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Ucapan Selamat</title>
+    <title>Kartu Ucapan</title>
     <style>
         body {
-            background-color: #f5f5f5;
-            text-align: center;
+            background: linear-gradient(135deg, #ffecd2, #fcb69f);
             font-family: Arial, sans-serif;
-            padding-top: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
         }
+
+        .card {
+            background: white;
+            width: 320px;
+            padding: 25px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
         h1 {
             color: #ff6b6b;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            background: #ff6b6b;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #ff4757;
+        }
+
+        .message {
+            margin-top: 15px;
+            display: none;
+            font-size: 16px;
         }
     </style>
 </head>
 <body>
-    <h1>🎉 Selamat Datang 🎉</h1>
-    <p>Terima kasih sudah membuka website ini</p>
+
+<div class="card">
+    <h1>🎉 Hai! 🎉</h1>
+    <p>Klik kartu ini ya</p>
+    <button onclick="showMessage()">Buka Kartu</button>
+    <div class="message" id="message">
+        🎂 Selamat Ulang Tahun! 🎂<br>
+        Semoga sehat, bahagia, dan semua keinginanmu tercapai ✨
+    </div>
+</div>
+
+<script>
+    function showMessage() {
+        document.getElementById("message").style.display = "block";
+    }
+</script>
+
 </body>
 </html>
