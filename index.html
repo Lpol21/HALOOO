@@ -16,7 +16,7 @@ body {
     overflow: hidden;
 }
 
-/* KARTU KECIL */
+/* ================= KARTU KECIL ================= */
 .card {
     background: #ffffff;
     width: 360px;
@@ -34,6 +34,11 @@ body {
     margin-bottom: 12px;
 }
 
+.step {
+    margin-top: 12px;
+}
+
+/* ================= BUTTON ================= */
 button {
     margin: 8px;
     padding: 10px 22px;
@@ -51,10 +56,7 @@ button:hover {
     transform: translateY(-2px);
 }
 
-/* STEP */
-.step { margin-top: 12px; }
-
-/* CONFETTI */
+/* ================= CONFETTI ================= */
 .confetti {
     position: fixed;
     top: -10px;
@@ -64,10 +66,13 @@ button:hover {
 }
 
 @keyframes fall {
-    to { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    to {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+    }
 }
 
-/* LEMBAR SURAT BESAR */
+/* ================= SURAT BESAR ================= */
 .letter {
     display: none;
     position: fixed;
@@ -86,6 +91,26 @@ button:hover {
     z-index: 5;
 }
 
+/* Animasi zoom in → zoom out */
+@keyframes zoomInOut {
+    0% {
+        transform: translateX(-50%) scale(1.15);
+        opacity: 0;
+    }
+    60% {
+        transform: translateX(-50%) scale(0.98);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(-50%) scale(1);
+    }
+}
+
+.letter.show {
+    display: block;
+    animation: zoomInOut 1.2s ease;
+}
+
 .letter h1 {
     font-size: 28px;
     color: #3a4f7a;
@@ -100,9 +125,10 @@ button:hover {
 }
 </style>
 </head>
+
 <body>
 
-<!-- KARTU KECIL AWAL -->
+<!-- ================= KARTU AWAL ================= -->
 <div class="card" id="card">
     <h1>Halo Edelweiss Damara Araminta!</h1>
 
@@ -119,39 +145,50 @@ button:hover {
     <div class="step" id="step2" style="display:none;">
         <p>Udah siap :D?</p>
         <button onclick="wrongChoice()">Engga</button>
-        <button onclick="goStep3()">Siap</button>
+        <button onclick="openLetter()">Siap</button>
     </div>
 
     <div class="step" id="step3" style="display:none;">
         <p>Yakin?</p>
-        <button onclick="goStep3()">SIAP</button>
+        <button onclick="openLetter()">SIAP</button>
         <button onclick="openLetter()">SIAAAPPP</button>
     </div>
 </div>
 
-<!-- LEMBAR SURAT BESAR -->
+<!-- ================= SURAT BESAR ================= -->
 <div class="letter" id="letter">
     <h1>EHHHH HALOOOO</h1>
     <div class="message" id="letterMessage"></div>
 </div>
 
 <script>
-const text = `Sedikit kata-kata del dibaca yaa hehehe😊
+const text = `Sedikit kata-kata del dibaca yaa hehehe 😊
 
-WOWOWOW UAS SELESAI DEL! n Semester pertama lu udah selesai yeayyyy🎉
-jujur keren sih. Harus bangga sama diri lu. Mungkin kalau lu bilang
-ini hal kecil belum ada apaa apanya, yaa mungkin gua setuju. Tapi, ga
-ada salahnya kita mengapreasiasi dari hal yang paling kecil. Ke tempat 
-baru, bukan kampus impian lu, teman baru, jujur satu kata lu bisa lewatin 
-itu semua KEREN. Setelah ini, istirahat yang banyak! puas puasin istirahat
-nonton semua wishlist drakor lu hehehe.
+WOWOWOW UAS SELESAI DEL!
+Semester pertama lu udah selesai yeayyyy 🎉
 
-TERIMA KASIH ADEL UDAH MAU BACA HEHEHEHE 😁
-BTW NO AI YAA INI KATA-KATANYA
-#SAY NO TO COMPLIMENTS USING AI😎`;
+Jujur keren sih. Harus bangga sama diri lu.
+Mungkin lu ngerasa ini hal kecil,
+tapi ga ada salahnya mengapresiasi diri sendiri.
+
+Ke tempat baru,
+bukan kampus impian lu,
+teman baru,
+dan lu bisa lewatin itu semua.
+
+KEREN.
+
+Setelah ini istirahat yang banyak,
+puas-puasin nonton wishlist drakor lu 😆
+Jangan lupa jaga kesehatan juga yaa.
+
+TERIMA KASIH UDAH MAU BACA 🤍
+BTW NO AI YA INI KATA-KATANYA
+#SAYNOTOCOMPLIMENTSUSINGAI 😎`;
 
 let index = 0;
 
+/* ================= STEP FUNCTION ================= */
 function goStep1b() {
     step1.style.display = "none";
     step1b.style.display = "block";
@@ -162,30 +199,35 @@ function goStep2() {
     step2.style.display = "block";
 }
 
-function goStep3() {
-    step2.style.display = "none";
-    step3.style.display = "block";
-}
-
 function wrongChoice() {
     alert("kayaknya salah deh 😆");
 }
 
+/* ================= BUKA SURAT ================= */
 function openLetter() {
+    step2.style.display = "none";
     step3.style.display = "none";
-    document.getElementById("letter").style.display = "block";
+
+    letterMessage.textContent = "";
+    index = 0;
+
+    const letter = document.getElementById("letter");
+    letter.classList.add("show");
+
     typeText();
     startConfetti();
 }
 
+/* ================= TYPING EFFECT ================= */
 function typeText() {
     if (index < text.length) {
         letterMessage.textContent += text[index];
         index++;
-        setTimeout(typeText, 80);
+        setTimeout(typeText, 80); // kecepatan teks
     }
 }
 
+/* ================= CONFETTI ================= */
 function startConfetti() {
     for (let i = 0; i < 40; i++) {
         const f = document.createElement("div");
