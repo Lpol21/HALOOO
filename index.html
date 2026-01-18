@@ -176,6 +176,9 @@ body {
 
 <body>
 
+<!-- AUDIO -->
+<audio id="bgMusic" src="live_it_down.mp3" loop></audio>
+
 <!-- ================= LOGIN ================= -->
 <div class="login-box" id="loginBox">
     <img src="edelweiss.jpg" alt="edelweiss">
@@ -273,12 +276,27 @@ function openLetter() {
     letter.classList.add("show");
     typeText();
     startConfetti();
+
+    // ===== MUSIK LIVE IT DOWN - LANY =====
+    const music = document.getElementById("bgMusic");
+    music.volume = 0;
+    music.play();
+
+    let vol = 0;
+    const fade = setInterval(() => {
+        if (vol < 0.3) {
+            vol += 0.02;
+            music.volume = vol;
+        } else {
+            clearInterval(fade);
+        }
+    }, 200);
 }
 
 function typeText() {
     if (index < text.length) {
         letterMessage.textContent += text[index++];
-        setTimeout(typeText, 60); // dipercepat
+        setTimeout(typeText, 60);
     }
 }
 
