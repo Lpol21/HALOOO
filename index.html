@@ -8,7 +8,7 @@
 body {
     margin: 0;
     height: 100vh;
-    background: linear-gradient(135deg, #1e1e1e, #2b2b2b);
+    background: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -18,12 +18,13 @@ body {
 
 /* ================= LOGIN ================= */
 .login-box {
-    background: #e5e5e5;
+    background: #f2f2f2;
     width: 360px;
     padding: 28px;
     border-radius: 20px;
     text-align: center;
-    box-shadow: 0 18px 40px rgba(0,0,0,0.4);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.2);
+    box-sizing: border-box;
 }
 
 .login-box img {
@@ -32,7 +33,7 @@ body {
     object-fit: cover;
     border-radius: 50%;
     margin-bottom: 20px;
-    border: 3px solid #333;
+    border: 3px solid #3a4f7a;
 }
 
 .login-box label {
@@ -40,32 +41,34 @@ body {
     text-align: left;
     font-size: 14px;
     margin-bottom: 6px;
+    color: #333;
 }
 
 .login-box input {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 12px;
-    border-radius: 6px;
-    border: 1px solid #999;
-    font-size: 14px;
-}
-
-.hint {
-    font-size: 12px;
-    color: #555;
+    padding: 10px 12px;
     margin-bottom: 14px;
+    border-radius: 8px;
+    border: 1px solid #aaa;
+    font-size: 14px;
+    box-sizing: border-box;
 }
 
 .login-box button {
     width: 100%;
     padding: 10px;
     border: none;
-    border-radius: 20px;
-    background: #333;
+    border-radius: 24px;
+    background: #3a4f7a;
     color: white;
     font-size: 14px;
     cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.login-box button:hover {
+    background: #2f4168;
+    transform: translateY(-2px);
 }
 
 /* ================= KARTU KECIL ================= */
@@ -177,14 +180,10 @@ body {
     <img src="edelweiss.jpg" alt="edelweiss">
     
     <label>Username</label>
-    <input type="text" id="username" placeholder="username diisi: adel">
+    <input type="text" id="username" placeholder="adel">
 
     <label>Password</label>
-    <input type="password" id="password" placeholder="password diisi: 23">
-
-    <div class="hint">
-        Hint: username <b>adel</b> & password <b>23</b>
-    </div>
+    <input type="password" id="password" placeholder="23">
 
     <button onclick="login()">Login</button>
 </div>
@@ -223,7 +222,6 @@ body {
 </div>
 
 <script>
-/* ================= LOGIN ================= */
 function login() {
     const user = document.getElementById("username").value;
     const pass = document.getElementById("password").value;
@@ -236,7 +234,6 @@ function login() {
     }
 }
 
-/* ================= TEKS SURAT ================= */
 const text = `Sedikit kata-kata del dibaca yaa hehehe 😊
 
 WOWOWOW UAS SELESAI DEL! n Semester pertama lu udah selesai yeayyyy🎉 jujur keren sih.
@@ -247,7 +244,7 @@ Setelah ini, istirahat yang banyak! puas puasin istirahat, nonton semua wishlist
 Ohh iyaa jangan lupa jaga kesehatan juga. 
 
 TERIMA KASIH ADEL UDAH MAU BACA HEHEHEHE 😁
-#SAY NO TO COMPLIMENTS USING AI😎`; 
+#SAY NO TO COMPLIMENTS USING AI😎`;
 
 let index = 0;
 
@@ -280,7 +277,7 @@ function openLetter() {
 function typeText() {
     if (index < text.length) {
         letterMessage.textContent += text[index++];
-        setTimeout(typeText, 150);
+        setTimeout(typeText, 60); // dipercepat
     }
 }
 
