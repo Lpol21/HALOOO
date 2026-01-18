@@ -8,7 +8,7 @@
 body {
     margin: 0;
     height: 100vh;
-    background: linear-gradient(135deg, #f7f3ef, #d9e4f5);
+    background: linear-gradient(135deg, #1e1e1e, #2b2b2b);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -16,8 +16,61 @@ body {
     overflow: hidden;
 }
 
+/* ================= LOGIN ================= */
+.login-box {
+    background: #e5e5e5;
+    width: 360px;
+    padding: 28px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.4);
+}
+
+.login-box img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    border: 3px solid #333;
+}
+
+.login-box label {
+    display: block;
+    text-align: left;
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+.login-box input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 12px;
+    border-radius: 6px;
+    border: 1px solid #999;
+    font-size: 14px;
+}
+
+.hint {
+    font-size: 12px;
+    color: #555;
+    margin-bottom: 14px;
+}
+
+.login-box button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    background: #333;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+}
+
 /* ================= KARTU KECIL ================= */
 .card {
+    display: none;
     background: #ffffff;
     width: 360px;
     padding: 32px;
@@ -39,7 +92,7 @@ body {
 }
 
 /* ================= BUTTON ================= */
-button {
+.card button {
     margin: 8px;
     padding: 10px 22px;
     border: none;
@@ -51,7 +104,7 @@ button {
     transition: all 0.3s ease;
 }
 
-button:hover {
+.card button:hover {
     background: #2f4168;
     transform: translateY(-2px);
 }
@@ -91,19 +144,10 @@ button:hover {
     z-index: 5;
 }
 
-/* Animasi zoom in → zoom out */
 @keyframes zoomInOut {
-    0% {
-        transform: translateX(-50%) scale(1.15);
-        opacity: 0;
-    }
-    60% {
-        transform: translateX(-50%) scale(0.98);
-        opacity: 1;
-    }
-    100% {
-        transform: translateX(-50%) scale(1);
-    }
+    0% { transform: translateX(-50%) scale(1.15); opacity: 0; }
+    60% { transform: translateX(-50%) scale(0.98); opacity: 1; }
+    100% { transform: translateX(-50%) scale(1); }
 }
 
 .letter.show {
@@ -127,6 +171,23 @@ button:hover {
 </head>
 
 <body>
+
+<!-- ================= LOGIN ================= -->
+<div class="login-box" id="loginBox">
+    <img src="edelweiss.jpg" alt="edelweiss">
+    
+    <label>Username</label>
+    <input type="text" id="username" placeholder="username diisi: adel">
+
+    <label>Password</label>
+    <input type="password" id="password" placeholder="password diisi: 23">
+
+    <div class="hint">
+        Hint: username <b>adel</b> & password <b>23</b>
+    </div>
+
+    <button onclick="login()">Login</button>
+</div>
 
 <!-- ================= KARTU AWAL ================= -->
 <div class="card" id="card">
@@ -155,29 +216,41 @@ button:hover {
     </div>
 </div>
 
-<!-- ================= SURAT BESAR ================= -->
+<!-- ================= SURAT ================= -->
 <div class="letter" id="letter">
     <h1>EHHHH HALOOOO</h1>
     <div class="message" id="letterMessage"></div>
 </div>
 
 <script>
+/* ================= LOGIN ================= */
+function login() {
+    const user = document.getElementById("username").value;
+    const pass = document.getElementById("password").value;
+
+    if (user === "adel" && pass === "23") {
+        document.getElementById("loginBox").style.display = "none";
+        document.getElementById("card").style.display = "block";
+    } else {
+        alert("Username atau password salah 😆");
+    }
+}
+
+/* ================= TEKS SURAT ================= */
 const text = `Sedikit kata-kata del dibaca yaa hehehe 😊
 
-WOWOWOW UAS SELESAI DEL! n Semester pertama lu udah selesai yeayyyy🎉 
-jujur keren sih. Harus bangga sama diri lu. Mungkin kalau lu bilang ini hal kecil 
-belum ada apaa apa nya, yaa mungkin gua setuju. Tapi, ga ada salahnya kita 
-mengapreasiasi dari hal yang paling kecil. Ke tempat baru, bukan kampus impian lu, 
-teman baru, jujur satu kata lu bisa lewatin itu semua KEREN!. Setelah ini, istirahat yang banyak! 
-puas puasin istirahat, nonton semua wishlist drakor lu hehehe. Ohh iyaa jangan lupa jaga kesehatan juga. 
- 
+WOWOWOW UAS SELESAI DEL! n Semester pertama lu udah selesai yeayyyy🎉 jujur keren sih.
+Harus bangga sama diri lu. Mungkin kalau lu bilang ini hal kecil belum ada apaa apa nya,
+yaa mungkin gua setuju. Tapi, ga ada salahnya kita mengapreasiasi dari hal yang palimg kecil.
+Ke tempat baru, bukan kampus impian lu, teman baru, jujur satu kata lu bisa lewatin itu semua KEREN!.
+Setelah ini, istirahat yang banyak! puas puasin istirahat, nonton semua wishlist drakor lu hehehe.
+Ohh iyaa jangan lupa jaga kesehatan juga. 
+
 TERIMA KASIH ADEL UDAH MAU BACA HEHEHEHE 😁
-BTW NO AI YAA INI KATA-KATANYA 
-#SAY NO TO COMPLIMENTS USING AI😎`;
+#SAY NO TO COMPLIMENTS USING AI😎`; 
 
 let index = 0;
 
-/* ================= STEP FUNCTION ================= */
 function goStep1b() {
     step1.style.display = "none";
     step1b.style.display = "block";
@@ -192,7 +265,6 @@ function wrongChoice() {
     alert("kayaknya salah deh 😆");
 }
 
-/* ================= BUKA SURAT ================= */
 function openLetter() {
     step2.style.display = "none";
     step3.style.display = "none";
@@ -200,39 +272,28 @@ function openLetter() {
     letterMessage.textContent = "";
     index = 0;
 
-    const letter = document.getElementById("letter");
     letter.classList.add("show");
-
     typeText();
     startConfetti();
 }
 
-/* ================= TYPING EFFECT ================= */
 function typeText() {
     if (index < text.length) {
-        letterMessage.textContent += text[index];
-        index++;
-        setTimeout(typeText, 150); // kecepatan teks
+        letterMessage.textContent += text[index++];
+        setTimeout(typeText, 150);
     }
 }
 
-/* ================= CONFETTI ================= */
-let confettiInterval;
-
 function startConfetti() {
-    confettiInterval = setInterval(() => {
+    setInterval(() => {
         const f = document.createElement("div");
         f.className = "confetti";
         f.textContent = "🌸";
         f.style.left = Math.random() * 100 + "vw";
         f.style.animationDuration = (4 + Math.random() * 3) + "s";
-        f.style.opacity = Math.random();
         document.body.appendChild(f);
-
-        setTimeout(() => {
-            f.remove();
-        }, 7000);
-    }, 250); // semakin kecil → semakin rame
+        setTimeout(() => f.remove(), 7000);
+    }, 250);
 }
 </script>
 
