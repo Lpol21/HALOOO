@@ -8,7 +8,7 @@
 body {
     margin: 0;
     height: 100vh;
-    background: #ffffff;
+    background: url("backgrounds.jpg") center / cover no-repeat fixed;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -54,7 +54,6 @@ body {
     box-sizing: border-box;
 }
 
-/* tombol login */
 .login-box button {
     width: 100%;
     padding: 10px;
@@ -113,11 +112,15 @@ body {
     transform: translateY(-2px);
 }
 
-/* ================= CONFETTI ================= */
+/* ================= CONFETTI (GAMBAR) ================= */
 .confetti {
     position: fixed;
     top: -10px;
-    font-size: 18px;
+    width: 24px;
+    height: 24px;
+    background-image: url("confetti.jpg");
+    background-size: contain;
+    background-repeat: no-repeat;
     animation: fall linear forwards;
     z-index: 1;
 }
@@ -176,23 +179,17 @@ body {
 
 <body>
 
-<!-- AUDIO -->
 <audio id="bgMusic" src="live_it_down.mp3" loop></audio>
 
-<!-- ================= LOGIN ================= -->
 <div class="login-box" id="loginBox">
     <img src="edelweiss.jpg" alt="edelweiss">
-
     <label>Username</label>
     <input type="text" id="username" placeholder="isi nama panggilan">
-
     <label>Password</label>
     <input type="password" id="password" placeholder="isi tanggal lahir">
-
     <button onclick="login()">Login</button>
 </div>
 
-<!-- ================= KARTU AWAL ================= -->
 <div class="card" id="card">
     <h1>Halo Edelweiss Damara Araminta!</h1>
 
@@ -202,7 +199,7 @@ body {
     </div>
 
     <div class="step" id="step1b" style="display:none;">
-        <p>Sedikit hadiah kecil 🎁</p>
+        <p>Sedikit birthday letter </p>
         <button onclick="goStep2()">OK</button>
     </div>
 
@@ -219,7 +216,6 @@ body {
     </div>
 </div>
 
-<!-- ================= SURAT ================= -->
 <div class="letter" id="letter">
     <h1>EHHHH HALOOOO</h1>
     <div class="message" id="letterMessage"></div>
@@ -277,7 +273,6 @@ function openLetter() {
     typeText();
     startConfetti();
 
-    // ===== MUSIK LIVE IT DOWN - LANY =====
     const music = document.getElementById("bgMusic");
     music.volume = 0;
     music.play();
@@ -296,7 +291,7 @@ function openLetter() {
 function typeText() {
     if (index < text.length) {
         letterMessage.textContent += text[index++];
-        setTimeout(typeText, 60);
+        setTimeout(typeText, 80);
     }
 }
 
@@ -304,7 +299,6 @@ function startConfetti() {
     setInterval(() => {
         const f = document.createElement("div");
         f.className = "confetti";
-        f.textContent = "🌸";
         f.style.left = Math.random() * 100 + "vw";
         f.style.animationDuration = (4 + Math.random() * 3) + "s";
         document.body.appendChild(f);
